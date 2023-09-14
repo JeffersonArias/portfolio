@@ -19,14 +19,7 @@ class Page1 extends StatelessWidget {
               children: [
                 _FirstRow(),
                 const SizedBox(height: 20,),
-                const Row(
-                  children: [
-                    AppIconText(image: AssetImage('assets/dribbble.jpg'), text: 'Dribbble'),
-                    AppIconText(image: AssetImage('assets/cv.jpg'), text: 'Download CV'),
-                    AppIconText(image: AssetImage('assets/mail.jpg'), text: 'Mail'),
-                    AppIconText(image: AssetImage('assets/discord.jpg'), text: 'Discord'),
-                  ],
-                ),
+                const _SecondRow(),
                 const SizedBox(height: 20,),
                 Row(
                   children: [
@@ -44,6 +37,24 @@ class Page1 extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _SecondRow extends StatelessWidget {
+  const _SecondRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      children: [
+        AppIconText(image: AssetImage('assets/dribbble.jpg'), text: 'Dribbble'),
+        AppIconText(image: AssetImage('assets/cv.jpg'), text: 'Download CV'),
+        AppIconText(image: AssetImage('assets/mail.jpg'), text: 'Mail'),
+        AppIconText(image: AssetImage('assets/discord.jpg'), text: 'Discord'),
+      ],
     );
   }
 }
