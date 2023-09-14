@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/screens/screens.dart';
 import 'package:portfolio/widgets/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Page1 extends StatelessWidget {
-  const Page1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +17,7 @@ class Page1 extends StatelessWidget {
             color: Colors.transparent,
             child: Column(
               children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, AboutMe.route);
-                        },
-                        child: const AppIconText(image: AssetImage('assets/about_me.jpg'), text: 'About me')),
-                    const AppIconText(image: AssetImage('assets/linkedin.jpg'), text: 'LinkedIn'),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, SkillsScreen.route);
-                      },
-                        child: const AppIconText(image: AssetImage('assets/skills.jpg'), text: 'Skills')),
-                    const AppIconText(image: AssetImage('assets/github.jpg'), text: 'GitHub'),
-                  ],
-                ),
+                _FirstRow(),
                 const SizedBox(height: 20,),
                 const Row(
                   children: [
@@ -59,6 +44,51 @@ class Page1 extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _FirstRow extends StatelessWidget {
+
+  final Uri _url_linkedin = Uri.parse('https://www.linkedin.com/in/jefferson-arias-42212b144');
+  final Uri _url_github = Uri.parse('https://github.com/JeffersonArias');
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        //About me app
+        GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, AboutMe.route);
+            },
+            child: const AppIconText(image: AssetImage('assets/about_me.jpg'), text: 'About me')),
+
+        //Linkedin app
+        GestureDetector(
+            onTap: () async {
+              if (!await launchUrl(_url_linkedin, mode: LaunchMode.inAppWebView)) {
+                throw Exception('Could not launch $_url_linkedin');
+              }
+            },
+            child: const AppIconText(image: AssetImage('assets/linkedin.jpg'), text: 'LinkedIn')),
+
+        //Skills app
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, SkillsScreen.route);
+          },
+            child: const AppIconText(image: AssetImage('assets/skills.jpg'), text: 'Skills')),
+
+        //GitHub app
+        GestureDetector(
+            onTap: () async {
+              if (!await launchUrl(_url_github, mode: LaunchMode.inAppWebView)) {
+                throw Exception('Could not launch $_url_github');
+              }
+            },
+            child: const AppIconText(image: AssetImage('assets/github.jpg'), text: 'GitHub')),
+      ],
     );
   }
 }

@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                 height: size.height * 0.73,
                 child: PageView(
                   controller: _controller,
-                  children: const [Page1(), Page2()],
+                  children: [Page1(), const Page2()],
                 ),
               ),
               const SizedBox(
