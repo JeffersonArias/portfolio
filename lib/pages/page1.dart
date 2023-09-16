@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:portfolio/pages/pages.dart';
 import 'package:portfolio/screens/screens.dart';
 import 'package:portfolio/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -101,7 +102,15 @@ class _SecondRow extends StatelessWidget {
             child: const AppIconText(image: AssetImage('assets/mail.jpg'), text: 'Mail')),
 
         //Discord app
-        const AppIconText(image: AssetImage('assets/discord.jpg'), text: 'Discord'),
+        GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => Page3(),
+                )
+              );
+            },
+            child: const AppIconText(image: AssetImage('assets/discord.jpg'), text: 'Discord')),
       ],
     );
   }
