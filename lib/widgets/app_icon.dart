@@ -18,8 +18,8 @@ class AppIcon extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(14),
             child: Container(
-              width: 65,
-              height: 65,
+              width: size.width*0.164,
+              height: size.width*0.164,
               color: Colors.transparent,
               child: Image(
                 fit: BoxFit.cover,

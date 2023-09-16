@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                   dotWidth: 10
                 ),
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(height: 15,),
               GlassBox(
                 height: 100,
                 width: double.infinity,

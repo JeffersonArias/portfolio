@@ -72,19 +72,28 @@ const Languages({
 
 @override
 Widget build(BuildContext context) {
-  return const Row(
-    mainAxisAlignment: MainAxisAlignment.center,
+  return const Column(
     children: [
-      _Bubble(child: Row(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('🇺🇸 English intermediate', style: TextStyle(color: Colors.white, fontSize: 16),)
+          _Bubble(child: Row( 
+            children: [
+              Text('🇺🇸 English intermediate', style: TextStyle(color: Colors.white, fontSize: 16),),
+            ],
+          )),
         ],
-      )),
-      _BubbleWhite(child: Row(
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('🇪🇸 Spanish Native', style: TextStyle(color: Colors.red, fontSize: 16),)
+          _BubbleWhite(child: Row(
+            children: [
+              Text('🇪🇸 Spanish Native', style: TextStyle(color: Colors.red, fontSize: 16),)
+            ],
+          )),
         ],
-      ))
+      )
     ],
   );
 }
