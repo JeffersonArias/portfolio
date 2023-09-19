@@ -7,3 +7,4 @@ export 'about_background.dart';
 export 'blue_box.dart';
 export 'button.dart';
 export 'header.dart';
+export 'card_widget.dart';

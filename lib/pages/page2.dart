@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/services/weather.dart';
 import 'package:portfolio/widgets/widgets.dart';
 
 class Page2 extends StatelessWidget {
@@ -40,27 +41,16 @@ class Page2 extends StatelessWidget {
             color: Colors.transparent,
             child: Row(
               children: [
-                Column(
+                const Column(
                   children: [
-                    _Card(decoration: customBlue,
-                      child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Cali', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),),
-                        Text('32°', style: TextStyle( color: Colors.white, fontSize: 40, fontWeight: FontWeight.w200),),
-                        SizedBox(height: 15,),
-                        Text('☀'),
-                        SizedBox(height: 5,),
-                        Text('Sunny', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w300),)
-                      ],
-                    ),),
-                    const Text('Weather', style: TextStyle(color: Colors.white),)
+                    WeatherWidget(),
+                    Text('Weather', style: TextStyle(color: Colors.white),)
                   ],
                 ),
                 Expanded(child: Container()),
                 Column(
                   children: [
-                    _Card(decoration: customRed,child: Column(
+                    CardWidget(decoration: customRed,child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
@@ -92,31 +82,148 @@ class Page2 extends StatelessWidget {
 }
 
 
-class _Card extends StatelessWidget {
 
-  final Widget child;
-  final BoxDecoration decoration;
+class WeatherWidget extends StatefulWidget {
+  const WeatherWidget({Key? key}) : super(key: key);
 
-  const _Card({super.key, required this.child, required this.decoration});
 
+  @override
+  State<WeatherWidget> createState() => _WeatherWidgetState();
+}
+
+class _WeatherWidgetState extends State<WeatherWidget> {
+
+  WeatherModel weather = WeatherModel();
+
+  late int temperature;
+  late String weatherIcon;
+  late String city;
+  late String main;
+  late String description;
+  late bool isLoading = true;
+
+  @override
+  void initState() {
+    getData();
+
+    super.initState();
+
+  }
+
+  void getData() async {
+
+    var weatherData = await weather.getCity('london');
+
+    updateUI(weatherData);
+
+
+  }
+
+  void updateUI(dynamic weatherData){
+    setState(() {
+      if (weatherData == null){
+        temperature = 0;
+        weatherIcon = 'Error';
+        description = 'Unable to get weather data';
+        city = 'null';
+        isLoading = false;
+        return;
+      }
+      double temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
+      int weatherNumber = weatherData['weather'][0]['id'];
+      weatherIcon = weather.getWeatherIcon(weatherNumber);
+      main = weatherData['weather'][0]['main'];
+      description = weatherData['weather'][0]['description'];
+      city = weatherData['name'];
+      isLoading = false;
+    });
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? const CardWeatherLoading()
+        : CardWeatherContent(city: city, temperature: temperature, weatherIcon: weatherIcon, main: main, description: description);
+  }
+}
+
+class CardWeatherLoading extends StatelessWidget {
+  const CardWeatherLoading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CardWidget(decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(20),
+    gradient: const LinearGradient(
+    end: Alignment.bottomCenter,
+    begin: Alignment.topCenter,
+    colors: [
+    Color.fromRGBO(5, 57, 112, 1.0),
+    Color.fromRGBO(66, 141, 215, 1.0)
+    ]
+    )
+    ), child: const Center(child: CircularProgressIndicator(
+      color: Colors.white,
+    ),),);
+  }
+}
+
+
+class CardWeatherContent extends StatelessWidget {
+
+  const CardWeatherContent({
+    super.key,
+    required this.city,
+    required this.temperature,
+    required this.weatherIcon,
+    required this.main,
+    required this.description,
+  });
+
+  final String city;
+  final int temperature;
+  final String weatherIcon;
+  final String main;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        width: size.width * 0.41,
-        height: size.width *0.41,
-        decoration: decoration,
-        child: child,
+    return CardWidget(decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        gradient: const LinearGradient(
+            end: Alignment.bottomCenter,
+            begin: Alignment.topCenter,
+            colors: [
+              Color.fromRGBO(5, 57, 112, 1.0),
+              Color.fromRGBO(66, 141, 215, 1.0)
+            ]
+        )
+    ),
+      child:  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //TODO: FIX RESPONSIVE FONT SIZE TEXT!!!!
+          Text(city, style: TextStyle(color: Colors.white, fontSize: size.width *0.16, fontWeight: FontWeight.w400),),
+          Text('$temperature°', style: const TextStyle( color: Colors.white, fontSize: 31, fontWeight: FontWeight.w200),),
+          const SizedBox(height: 6,),
+          Text(weatherIcon),
+          const SizedBox(height: 5,),
+          Text('$main - $description', style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),),
+        ],
       ),
     );
   }
 }
+
+
 
 
 
