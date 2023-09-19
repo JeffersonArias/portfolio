@@ -17,6 +17,7 @@ dependencies:
   animate_gradient: ^0.0.2+1
   url_launcher: ^6.1.14
   camera: ^0.10.5+4
+  http: ^1.1.0
 
 
 dev_dependencies:
