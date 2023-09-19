@@ -10,6 +10,7 @@ class Page1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(
@@ -75,7 +76,7 @@ class ThirdRow extends StatelessWidget {
 
 class _SecondRow extends StatelessWidget {
 
-  final Uri _url_dribbble = Uri.parse('https://www.google.com'); //TODO: Implements a real link
+  final Uri _url_dribbble = Uri.parse('https://dribbble.com/Yeton_');
 
   @override
   Widget build(BuildContext context) {

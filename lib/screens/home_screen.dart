@@ -1,8 +1,10 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/pages/pages.dart';
 import 'package:portfolio/screens/screens.dart';
 import 'package:portfolio/widgets/widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String route = '/home_screen';
@@ -22,16 +24,8 @@ class HomeScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              SizedBox(
-                height: size.height * 0.73,
-                child: PageView(
-                  controller: _controller,
-                  children: [Page1(), const Page2()],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              _Body(size: size, controller: _controller),
+              const SizedBox(height: 20,),
               SmoothPageIndicator(
                 controller: _controller,
                 count: 2,
@@ -43,34 +37,88 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15,),
-              GlassBox(
-                height: 100,
-                width: double.infinity,
-                colors: [
-                  Colors.white.withOpacity(0.3),
-                  Colors.white.withOpacity(0.1)
-                ],
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: Row(
-                    children: [
-                      const AppIcon(image: AssetImage('assets/call.jpg')),
-                      const AppIcon(image: AssetImage('assets/camera.jpg')),
-                      const AppIcon(image: AssetImage('assets/gallery.jpg')),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacementNamed(context, LockScreen.route);
-                        },
-                          child: const AppIcon(image: AssetImage('assets/lock.jpg')),
-                      )
-                    ],
-                  ),
-                ),
-
-              )
+              _GlassBox()
             ],
           ),
         ),
       ));
     }
   }
+
+class _GlassBox extends StatelessWidget {
+
+  final String _phoneNumber = '+573175424168';
+
+
+  @override
+  Widget build(BuildContext context) {
+    return GlassBox(
+      height: 100,
+      width: double.infinity,
+      colors: [
+        Colors.white.withOpacity(0.3),
+        Colors.white.withOpacity(0.1)
+      ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        child: Row(
+          children: [
+            GestureDetector(
+                onTap: () async {
+                  final url = Uri(scheme: 'tel', path: _phoneNumber,);
+                  if( await canLaunchUrl(url)) {
+                    launchUrl(url);
+                  }
+                },
+                child: const AppIcon(image: AssetImage('assets/call.jpg'))),
+            GestureDetector(
+                onTap: () async {
+                  WidgetsFlutterBinding.ensureInitialized();
+
+                  final cameras = await availableCameras();
+
+                  final firstCamera = cameras.first;
+
+                  Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CameraApp(camera: firstCamera),
+                      )
+                  );
+                },
+                child: const AppIcon(image: AssetImage('assets/camera.jpg'))),
+            const AppIcon(image: AssetImage('assets/gallery.jpg')),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushReplacementNamed(context, LockScreen.route);
+              },
+                child: const AppIcon(image: AssetImage('assets/lock.jpg')),
+            )
+          ],
+        ),
+      ),
+
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  const _Body({
+    super.key,
+    required this.size,
+    required PageController controller,
+  }) : _controller = controller;
+
+  final Size size;
+  final PageController _controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: size.height * 0.73,
+      child: PageView(
+        controller: _controller,
+        children: [Page1(), Page2()],
+      ),
+    );
+  } 
+}
