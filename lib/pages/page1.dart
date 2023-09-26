@@ -77,6 +77,7 @@ class ThirdRow extends StatelessWidget {
 class _SecondRow extends StatelessWidget {
 
   final Uri _url_dribbble = Uri.parse('https://dribbble.com/Yeton_');
+  final Uri _url_cv = Uri.parse('https://github.com/JeffersonArias/portfolio/blob/develop/lib/files/CV.pdf');
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +94,13 @@ class _SecondRow extends StatelessWidget {
             child: const AppIconText(image: AssetImage('assets/dribbble.jpg'), text: 'Dribbble')),
 
         // Download Cv app
-        const AppIconText(image: AssetImage('assets/cv.jpg'), text: 'Download CV'),
+        GestureDetector(
+            onTap: () async {
+              if (!await launchUrl(_url_cv, mode: LaunchMode.inAppWebView)) {
+                throw Exception('Could not launch $_url_cv');
+              }
+            },
+            child: const AppIconText(image: AssetImage('assets/cv.jpg'), text: 'Download CV')),
 
         // Mail
         GestureDetector(
@@ -159,7 +166,6 @@ class _SecondRow extends StatelessWidget {
       print('ERROR: CAN NOT OPEN EMAIL');
     }
   }
-
 }
 
 class _FirstRow extends StatelessWidget {

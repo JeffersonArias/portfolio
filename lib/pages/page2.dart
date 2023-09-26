@@ -112,7 +112,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
 
   void getData() async {
 
-    var weatherData = await weather.getCity('london');
+    var weatherData = await weather.getCity('cali');
 
     updateUI(weatherData);
 
@@ -210,13 +210,12 @@ class CardWeatherContent extends StatelessWidget {
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //TODO: FIX RESPONSIVE FONT SIZE TEXT!!!!
-          Text(city, style: TextStyle(color: Colors.white, fontSize: size.width *0.16, fontWeight: FontWeight.w400),),
-          Text('$temperature°', style: const TextStyle( color: Colors.white, fontSize: 31, fontWeight: FontWeight.w200),),
+          Text(city, style: TextStyle(color: Colors.white, fontSize: size.width *0.045, fontWeight: FontWeight.w400),),
+          Text('$temperature°', style: TextStyle( color: Colors.white, fontSize: size.width *0.1, fontWeight: FontWeight.w200),),
           const SizedBox(height: 6,),
           Text(weatherIcon),
           const SizedBox(height: 5,),
-          Text('$main - $description', style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w300),),
+          Text('$main - $description', style: TextStyle(color: Colors.white, fontSize: size.width *0.034, fontWeight: FontWeight.w300), maxLines: 2, overflow: TextOverflow.ellipsis,),
         ],
       ),
     );
