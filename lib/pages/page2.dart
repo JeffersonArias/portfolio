@@ -28,6 +28,8 @@ class Page2 extends StatelessWidget {
       )
   );
 
+  Page2({super.key});
+
   @override
   Widget build(BuildContext context) {
 

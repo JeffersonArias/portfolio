@@ -2,7 +2,6 @@
 # My personal portfolio app
 ![](https://img.shields.io/badge/current_status-still_developing-orange) ![](https://img.shields.io/badge/language_-flutter_-blue)
 
-[TOCM]
 
 ![](https://cdn-0.emojis.wiki/emoji-pics/apple/technologist-apple.png)
 
