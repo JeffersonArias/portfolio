@@ -3,7 +3,7 @@
 ![](https://img.shields.io/badge/current_status-still_developing-orange) ![](https://img.shields.io/badge/language_-flutter_-blue)
 
 
-![](https://cdn-0.emojis.wiki/emoji-pics/apple/technologist-apple.png)
+![](https://raw.githubusercontent.com/JeffersonArias/portfolio/master/lib/files/icon.png)
 
 This is my personal portfolio project, developed using [Flutter](https://github.com/flutter/flutter "Flutter"). It began as a simple personal challenge and a way to apply the skills I've acquired in app development using [Flutter](https://github.com/flutter/flutter "Flutter"). The concept of the project is inspired by emulating a mobile phone, complete with a lock screen and a home screen containing functional apps. These apps provide information about me, my education, my skills, my CV, my social media profiles, and more.
 
