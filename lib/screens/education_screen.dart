@@ -22,9 +22,10 @@ class EducationScreen extends StatelessWidget {
             indent: 25,
             endIndent: 25,
           ),
+          const _Container(title: 'Responsive Web Design', institution: 'Free Code Camp', function: 'Developer Certification', date: 'Oct 2023', city: 'Remote'),
           const _Container(title: 'Bachiller Tecnico Industrial', institution: 'Jose Maria Carbonell', function: 'Technical in Systems', date: 'Sep 2016', city: 'Cali', ),
           const _Container(title: 'Tecnico en sistemas', institution: 'Servicio Nacional De Aprendizaje', function: 'Technical in Systems', date: 'Sep 2016', city: 'Cali'),
-          _Container(title: 'English dot works', institution: 'Servicio Nacional De Aprendizaje', function: 'English', date: 'Sep 2014', city: 'Cali')
+          const _Container(title: 'English dot works', institution: 'Servicio Nacional De Aprendizaje', function: 'English', date: 'Sep 2014', city: 'Cali')
         ],
       ),
     );
